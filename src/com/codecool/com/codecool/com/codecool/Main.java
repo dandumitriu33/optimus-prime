@@ -29,6 +29,23 @@ public class Main {
         // optimization 1 attempt - low CPU, infinite memory
         primesEratosthenesOptimizationMemory(n);
 
+        // optimization 2 attempt - low memory, infinite CPU
+        primesEratosthenesOptimizationCPU(n);
+
+    }
+
+    private static void primesEratosthenesOptimizationCPU(int n) {
+        // using as few variables as possible and not caring about CPU
+        long t0 = System.nanoTime();
+        int counter = 0;
+        for (int i=2; i<n; i++) {
+            if (isPrime(i)) counter++;
+        }
+        long t1 = System.nanoTime();
+        System.out.println("Total number of primes from 1 to " + n + " is: " + counter);
+        System.out.println("Approximate time to complete: " + (t1-t0) + " nanoseconds.");
+
+
     }
 
     private static void primesEratosthenesOptimizationMemory(int n) {
