@@ -24,6 +24,41 @@ public class Main {
 
         // Eratosthenes algorithm attempt
         // populating the list of numbers 2 to n
+        primesEratosthenes(n);
+
+        // optimization 1 attempt - low CPU, infinite memory
+        primesEratosthenesOptimizationMemory(n);
+
+    }
+
+    private static void primesEratosthenesOptimizationMemory(int n) {
+        // we build a primes cache
+        long t0 = System.nanoTime();
+        List<Integer> primes = new ArrayList<>();
+        // we go through each number and
+        // first % it by all previous primes - if pass,
+        // then we check if it is a prime
+        for (int i=2; i<n; i++) {
+            for (int j=0; j<primes.size(); j++) {
+                if (i%primes.get(j)==0) break;
+            }
+            if (isPrime(i)) primes.add(i);
+        }
+        long t1 = System.nanoTime();
+        System.out.println("Total number of primes from 1 to " + n + " is: " + primes.size());
+        System.out.println("Approximate time to complete: " + (t1-t0) + " nanoseconds.");
+    }
+
+
+    static boolean isPrime(int number) {
+        if (number == 2) return true;
+        for (int i=2; i<number; i++) {
+            if (number%i == 0) return false;
+        }
+        return true;
+    }
+
+    private static void primesEratosthenes(int n) {
         long t0 = System.nanoTime();
         List<Integer> allNumbers = new ArrayList<>();
         for (int i=2; i<=n; i++) {
@@ -56,14 +91,6 @@ public class Main {
         System.out.println("Composites in between: " + composites.toString());
         System.out.println("Approximate time to complete: " + (t1-t0) + " nanoseconds.");
 
-    }
-
-    static boolean isPrime(int number) {
-        if (number == 2) return true;
-        for (int i=2; i<number; i++) {
-            if (number%i == 0) return false;
-        }
-        return true;
     }
 
 }
